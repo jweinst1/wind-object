@@ -10,11 +10,7 @@
 typedef enum
 {
         WindType_None,
-        WindType_Int,
-        WindType_Add,
-        WindType_Sub,
-        WindType_ExpStart,
-        WindType_ExpEnd
+        WindType_Int
 } WindType;
 
 typedef union
