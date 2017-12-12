@@ -23,6 +23,10 @@
                 (wstack->mark + index).ins = ins; \
 } while(0)
 
+#define WindStack_MOVE_N(wstack) wstack.mark++
+
+#define WindStack_MOVE_P(wstack) wstack.mark--
+
 /** NodeState
  * - Keeps track of if the node still needs to evaluate, or is done and ready to
  * move back or finish entire program process
