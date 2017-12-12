@@ -9,14 +9,19 @@
 #define WindStack_INIT(name, length) \
         WindStack name; \
         name.begin = malloc(sizeof(StackNode) * length); \
-        name.mark = begin; \
+        name.mark = name.begin; \
         name.end = name.begin + length;
 
-typedef struct
-{
-        WindObject* obj;
-        Instruction ins;
-} StackNode;
+
+#define WindStack_LOAD(wstack, wobj, ins) do { \
+                wstack->mark->obj = wobj; \
+                wstack->mark.ins = ins; \
+} while(0)
+
+#define WindStack_LOAD_AT(wstack, wobj, ins, index) do { \
+                (wstack->mark + index)->obj = wobj; \
+                (wstack->mark + index).ins = ins; \
+} while(0)
 
 /** NodeState
  * - Keeps track of if the node still needs to evaluate, or is done and ready to
@@ -32,10 +37,20 @@ typedef enum
 
 typedef struct
 {
+        WindObject* obj;
+        WindInstruc ins;
+        NodeState state;
+} StackNode;
+
+
+typedef struct
+{
         StackNode* begin;
         StackNode* mark;
         StackNode* end;
-        NodeState state;
 } WindStack;
+
+
+void WindObject_make_int(WindObject* wobj, int num);
 
 #endif
